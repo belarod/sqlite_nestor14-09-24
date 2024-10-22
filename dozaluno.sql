@@ -92,21 +92,21 @@ INSERT INTO disciplina (nome, capacidade) VALUES
 
 -- Insert into sala
 INSERT INTO sala (nome, id_disciplina) VALUES
-('A1', 'Matematica'),
-('A2', 'Fisica'),
-('B1', 'Quimica'),
-('B2', 'Historia'),
-('C1', 'Geografia'),
-('C2', 'Biologia'),
-('D1', 'Ingles'),
-('D2', 'Portugues'),
-('E1', 'Ed. Fisica'),
-('E2', 'Artes'),
-('F1', 'Musica'),
-('F2', 'Programacao'),
-('G1', 'Economia'),
-('G2', 'Sociologia'),
-('H1', 'Filosofia');
+('113', 'Matematica'),
+('101', 'Fisica'),
+('10', 'Quimica'),
+('323', 'Historia'),
+('221', 'Geografia'),
+('442', 'Biologia'),
+('923', 'Ingles'),
+('104', 'Portugues'),
+('310', 'Ed. Fisica'),
+('434', 'Artes'),
+('444', 'Musica'),
+('343', 'Programacao'),
+('33', 'Economia'),
+('2', 'Sociologia'),
+('464', 'Filosofia');
 
 -- Insert into ministra
 INSERT INTO ministra (id_prof, id_disc) VALUES
@@ -153,5 +153,34 @@ WHERE salario is null;
 
 UPDATE professor
 SET salario = salario + 300
-WHERE ctps LIKE '%3' OR ctps LIKE '%5' OR ctps LIKE '%3'
+WHERE ctps LIKE '%3' OR ctps LIKE '%5' OR ctps LIKE '%3';
 
+--DQL ultima atv
+
+SELECT nome FROM sala
+WHERE nome LIKE '%10%';
+
+SELECT nome FROM aluno
+WHERE nome LIKE 'S%';
+
+SELECT nome FROM professor
+WHERE nome LIKE 'S%';
+
+SELECT capacidade FROM disciplina
+WHERE capacidade >= 50
+ORDER BY capacidade DESC;
+
+SELECT capacidade as vagas,
+    CASE
+        WHEN capacidade > 40 THEN 'Lotada'
+        WHEN capacidade < 10 THEN 'Vazia'
+        ELSE 'Normal'
+    END AS status_capacidade
+FROM disciplina;
+
+--SELECT salario FROM professor
+--ORDER BY salario DESC
+--LIMIT 1
+
+SELECT MAX(salario) AS maior_salario, MIN(salario) AS menor_salario
+FROM professor
