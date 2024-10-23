@@ -183,4 +183,47 @@ FROM disciplina;
 --LIMIT 1
 
 SELECT MAX(salario) AS maior_salario, MIN(salario) AS menor_salario
-FROM professor
+FROM professor;
+
+--ÁLGEBRA RELACIONAL--------------------------------------------------------------
+
+INSERT INTO aluno (cpf, nome, matricula) VALUES
+('12345678901', 'Carlos Silva', '2023001'),
+('23456789012', 'Maria Oliveira', '2023002'),
+('34567890123', 'João Santos', '2023003'),
+('45678901234', 'Ana Costa', '2023004'),
+('56789012345', 'Pedro Lima', '2023005');
+
+INSERT INTO professor (cpf, nome, ctps) VALUES
+('12333378901', 'Carlos Silva', '98765432101'),
+('22256789012', 'Maria Oliveira', '87654321012'),
+('34567895423', 'João Santos', '76543210923'),
+('45675501234', 'Ana Costa', '65432109834'),
+('56789034345', 'Pedro Lima', '54321098745');
+
+--UNIÃO--
+
+SELECT * FROM aluno
+UNION ALL
+SELECT * FROM professor;
+
+--INTERSEÇÃO--
+
+SELECT nome FROM aluno
+INTERSECT
+SELECT nome FROM professor;
+
+--DIFERENÇA--
+
+SELECT nome FROM aluno
+EXCEPT
+SELECT nome FROM professor;
+
+--PRODUTO CARTESIANO--
+
+--SELECT * FROM aluno
+--CROSS JOIN disciplina;
+
+SELECT aluno.nome AS nome_aluno, disciplina.nome AS nome_disciplina
+FROM aluno
+CROSS JOIN disciplina;
