@@ -1,12 +1,15 @@
-CREATE TABLE departments(
-    id INT PRIMARY KEY,
-    name VARCHAR(50)
-);
+SELECT *
+FROM employees
+LEFT JOIN departments ON employees.dptoid = departments.dptoid;
 
-CREATE TABLE employees(
-    id INT PRIMARY KEY,
-    name VARCHAR(50),
+--
 
-    department_id INT,
-    FOREIGN KEY (department_id) REFERENCES department(id)
-);
+SELECT *
+FROM employees
+INNER JOIN departments ON employees.dptoid = departments.dptoid;
+
+--
+
+SELECT DISTINCT *
+FROM departments
+INNER JOIN employees ON departments.dptoid = employees.dptoid;
