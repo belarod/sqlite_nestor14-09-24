@@ -227,3 +227,63 @@ SELECT nome FROM professor;
 SELECT aluno.nome AS nome_aluno, disciplina.nome AS nome_disciplina
 FROM aluno
 CROSS JOIN disciplina;
+
+--ATV P/ CASA-- ESTUDAR TUDO ISSO AQ!!!
+
+SELECT disciplina.nome, disciplina.capacidade, sala.nome
+FROM disciplina
+LEFT JOIN sala;
+
+SELECT aluno.nome AS NomeCompleto,
+       estuda.id_disc AS Disciplinas
+FROM aluno
+INNER JOIN estuda ON aluno.cpf = estuda.id_aluno;
+
+SELECT professor.nome,
+       ministra.id_disc AS Disciplina,
+       sala.nome AS NumeroSala
+FROM professor
+INNER JOIN ministra ON professor.cpf = ministra.id_prof
+INNER JOIN sala ON ministra.id_disc = sala.id_disciplina;
+
+SELECT disciplina.nome AS Disciplina,
+       disciplina.capacidade AS capacidade,
+       professor.nome AS professor
+FROM disciplina
+LEFT JOIN ministra ON disciplina.nome = ministra.id_disc
+LEFT JOIN professor ON ministra.id_prof = professor.cpf
+WHERE disciplina.capacidade >= 40;
+
+SELECT aluno.nome AS NomeAlunos,
+       professor.nome AS NomeProfessores
+FROM aluno
+LEFT JOIN estuda ON aluno.cpf = estuda.id_aluno
+LEFT JOIN ministra ON estuda.id_disc = ministra.id_disc
+LEFT JOIN professor ON ministra.id_prof = professor.cpf;
+
+SELECT disciplina.nome,
+       sala.nome || ' - ' || disciplina.capacidade AS SalaNomeECapacidade,
+       CASE
+           WHEN nome >= 40 THEN 'GRANDE'
+           ELSE 'pequena'
+           END AS capacidade
+FROM sala
+LEFT JOIN disciplina ON disciplina.nome = sala.id_disciplina;
+
+--atv 29-10-24--
+--universidade (funcoes e agregacoes)
+
+SELECT aluno.nome,
+    COUNT (estuda.id_disc) as DisciplinasMatriculadas
+FROM aluno
+LEFT JOIN estuda ON aluno.cpf = estuda.id_aluno
+GROUP BY aluno.nome;
+
+SELECT SUM(disciplina.capacidade) AS capacidade_todas_disciplinas
+FROM disciplina;
+
+SELECT COUNT(aluno.nome) AS alunos_matriculados,
+       SUM(disciplina.capacidade) AS vagas_universidade
+FROM aluno
+LEFT JOIN estuda ON estuda.id_aluno = aluno.cpf
+LEFT JOIN disciplina ON estuda.id_disc = disciplina.nome;
